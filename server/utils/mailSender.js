@@ -2,20 +2,18 @@ const axios = require("axios");
 
 const mailSender = async (email, title, body) => {
   try {
-    const apiKey = process.env.BREVO_API_KEY;
-    console.log("BREVO_API_KEY starts with:", apiKey ? apiKey.substring(0, 15) : "UNDEFINED");
     const response = await axios.post(
-      "https://api.brevo.com/v3/smtp/email",
+      "https://api.resend.com/emails",
       {
-        sender: { name: "PrepPal", email: process.env.MAIL_USER },
-        to: [{ email: email }],
+        from: "PrepPal <onboarding@resend.dev>",
+        to: [email],
         subject: title,
-        htmlContent: body,
+        html: body,
       },
       {
         headers: {
-          "api-key": process.env.BREVO_API_KEY,
-          "content-type": "application/json",
+          Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+          "Content-Type": "application/json",
         },
       }
     );
