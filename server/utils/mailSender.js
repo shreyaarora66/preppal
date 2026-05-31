@@ -23,6 +23,7 @@ const mailSender = async (email, title, body) => {
     return response.data;
   } catch (error) {
     console.log("Mail error:", error.message);
+    console.log("Mail error details:", JSON.stringify(error.response?.data));
   }
 };
 
